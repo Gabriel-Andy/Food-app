@@ -3,14 +3,22 @@ import IngredientList from "./IngredientList";
 import Steps from "./Steps";
 
 export default function Recipe(props) {
-  const { name, cookTime, serving, ingredients, steps } = props;
+  const {
+    id,
+    name,
+    cookTime,
+    serving,
+    steps,
+    ingredients,
+    handleRecipeDelete,
+  } = props;
   return (
-    <div className = "container-recipe">
-      <div className = "container-title">
+    <div className="container-recipe">
+      <div className="container-title">
         <h3>{name}</h3>
-        <div className = "button">
+        <div className="button">
           <button>Edit</button>
-          <button>Delete</button>
+          <button onClick={() => handleRecipeDelete(id)}>Delete</button>
         </div>
       </div>
       <div>

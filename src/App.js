@@ -1,11 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
 import RecipeList from "./RecipeList";
 import uuid from "react-uuid";
 export default function App() {
+  const [recipes, setRecipes] = useState(data);
+
+  function handleRecipeAdd() {
+    const newRecipe = {
+      id: uuid(),
+      cookTime: 3,
+      serving: 5,
+      name: "baked cake",
+      ingredients: [
+        { id: uuid(), name: "Bread", amount: 1, measurement: "l lb" },
+        { id: uuid(), name: "Coca cola", amount: 1, measurement: "cup" },
+      ],
+      steps: [
+        "eat every single morning before going at work",
+        "be able to wake up at 5:30 in the morning",
+      ],
+    };
+    setRecipes([...recipes, newRecipe]);
+  }
+  function handleRecipeDelete(id) {
+    setRecipes(recipes.filter((recipe) => recipe.id !== id));
+  }
   return (
     <>
-      <RecipeList recipes={data} />
+      <RecipeList
+        recipes={recipes}
+        handleRecipeAdd={handleRecipeAdd}
+        handleRecipeDelete={handleRecipeDelete}
+      />
     </>
   );
 }
@@ -39,12 +65,12 @@ let data = [
     serving: 5,
     name: "Fish Tacos",
     ingredients: [
-      { name: "WhiteFish", amount: 1, measurement: "l lb" },
-      { name: "Cheese", amount: 1, measurement: "cup" },
-      { name: "iceberg lettuce", amount: 2, measurement: "cups" },
-      { name: "Tomatoes", amount: 1, measurement: "med" },
-      { name: "Tortilla", amount: 0.5, measurement: "cup" },
-      { name: "Garlic", amount: 3, measurement: "cloves" },
+      { id: uuid(), name: "WhiteFish", amount: 1, measurement: "l lb" },
+      { id: uuid(), name: "Cheese", amount: 1, measurement: "cup" },
+      { id: uuid(), name: "iceberg lettuce", amount: 2, measurement: "cups" },
+      { id: uuid(), name: "Tomatoes", amount: 1, measurement: "med" },
+      { id: uuid(), name: "Tortilla", amount: 0.5, measurement: "cup" },
+      { id: uuid(), name: "Garlic", amount: 3, measurement: "cloves" },
     ],
     steps: [
       "Cook the fish on the grill until hot.",
