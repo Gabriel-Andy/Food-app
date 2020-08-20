@@ -1,25 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import Recipe from "./Recipe";
+import { RecipeContext } from "./App";
 
-export default function RecipeList({
-                 recipes,
-                 handleRecipeAdd,
-                 handleRecipeDelete,
-               }) {
-                 return (
-                   <div className="container-recipes">
-                     <div>
-                       {recipes.map((recipe) => {
-                         return (
-                           <Recipe
-                             key={recipe.id}
-                             {...recipe}
-                             handleRecipeDelete={handleRecipeDelete}
-                           />
-                         );
-                       })}
-                     </div>
-                     <button onClick={handleRecipeAdd}>Add recipe</button>
-                   </div>
-                 );
-               }
+export default function RecipeList({ recipes }) {
+  const { handleRecipeAdd } = useContext(RecipeContext);
+  return (
+    <div className="container-recipes">
+      <div>
+        {recipes.map((recipe) => {
+          return <Recipe key={recipe.id} {...recipe} />;
+        })}
+      </div>
+      <button onClick={handleRecipeAdd}>Add recipe</button>
+    </div>
+  );
+}
