@@ -4,14 +4,14 @@ import Steps from "./Steps";
 import { RecipeContext } from "./App";
 
 export default function Recipe(props) {
-  const { handleRecipeDelete } = useContext(RecipeContext);
+  const { handleRecipeDelete, handleRecipeSelect } = useContext(RecipeContext);
   const { id, name, cookTime, serving, steps, ingredients } = props;
   return (
     <div className="container-recipe">
       <div className="container-title">
         <h3>{name}</h3>
         <div className="button">
-          <button>Edit</button>
+          <button onClick={() => handleRecipeSelect(id)}>Edit</button>
           <button onClick={() => handleRecipeDelete(id)}>Delete</button>
         </div>
       </div>
@@ -36,5 +36,3 @@ export default function Recipe(props) {
     </div>
   );
 }
-
-

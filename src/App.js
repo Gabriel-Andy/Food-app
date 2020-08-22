@@ -7,22 +7,29 @@ export const RecipeContext = React.createContext();
 const LOCAl_STORAGE_KEY = "cookingWithReact.recipes";
 
 export default function App() {
+  const [selectedRecipeId, setSelectedRecipeId] = useState();
   const [recipes, setRecipes] = useState(data);
+  const selectedRecipe = recipes.find(
+    (recipe) => recipe.id === selectedRecipeId
+  );
+  console.log(selectedRecipe);
   useEffect(() => {
     const getRecipes = localStorage.getItem(LOCAl_STORAGE_KEY);
     if (getRecipes != null) {
-      console.log(" I am not inside the local storage");
       setRecipes(JSON.parse(getRecipes));
     }
   }, []);
   useEffect(() => {
-    console.log("I am a developer");
     localStorage.setItem(LOCAl_STORAGE_KEY, JSON.stringify(recipes));
   }, [recipes]);
   const recipeContextValue = {
     handleRecipeAdd,
     handleRecipeDelete,
+    handleRecipeSelect,
   };
+  function handleRecipeSelect(id) {
+    setSelectedRecipeId(id);
+  }
 
   function handleRecipeAdd() {
     const newRecipe = {
@@ -47,7 +54,7 @@ export default function App() {
   return (
     <RecipeContext.Provider value={recipeContextValue}>
       <RecipeList recipes={recipes} />
-      <RecipeEdit />
+      {selectedRecipe && <RecipeEdit recipe={selectedRecipe} />}
     </RecipeContext.Provider>
   );
 }
