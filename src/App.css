@@ -1,35 +1,35 @@
-*{
-  margin:0px;
-  padding:0px;
+@import "./recipe-edit.css";
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
 }
-.container-recipes{
-  width:50%;
+.container-recipes {
+  width: 50%;
   border-right: 1px solid black;
-  min-height:100vh;
+  min-height: 100vh;
 }
-.container-recipes button{
-margin-top:1rem;
+.container-recipes button {
+  margin-top: 1rem;
 }
-.container-recipe{
-  border-bottom:1px solid black;
-  padding-bottom:2rem;
+.container-recipe {
+  border-bottom: 1px solid black;
+  padding-bottom: 2rem;
 }
-.container-title{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
+.container-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-.container-title h3{
-  margin-bottom:1.3rem;
+.container-title h3 {
+  margin-bottom: 1.3rem;
 }
-.container-title button{
-  margin-right:1.2rem;
-
+.container-title button {
+  margin-right: 1.2rem;
 }
 .ingredients-container {
-  margin:1.2rem 0;
+  margin: 1.2rem 0;
 }
-.ingredient-container{
-display:block;
-
+.ingredient-container {
+  display: block;
 }

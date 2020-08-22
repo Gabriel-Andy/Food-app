@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import RecipeList from "./RecipeList";
 import uuid from "react-uuid";
-
+import RecipeEdit from "./RecipeEdit";
 export const RecipeContext = React.createContext();
 const LOCAl_STORAGE_KEY = "cookingWithReact.recipes";
 
@@ -47,6 +47,7 @@ export default function App() {
   return (
     <RecipeContext.Provider value={recipeContextValue}>
       <RecipeList recipes={recipes} />
+      <RecipeEdit />
     </RecipeContext.Provider>
   );
 }
