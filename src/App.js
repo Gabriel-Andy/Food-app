@@ -26,9 +26,16 @@ export default function App() {
     handleRecipeAdd,
     handleRecipeDelete,
     handleRecipeSelect,
+    handleRecipeChange,
   };
   function handleRecipeSelect(id) {
     setSelectedRecipeId(id);
+  }
+  function handleRecipeChange(id, recipe) {
+    const newRecipes = [...recipes];
+    const index = newRecipes.findIndex((i) => i.id === id);
+    newRecipes[index] = recipe;
+    setRecipes(newRecipes);
   }
 
   function handleRecipeAdd() {

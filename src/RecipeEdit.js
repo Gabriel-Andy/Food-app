@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import RecipeIngredientEdit from "./RecipeIngredientEdit";
-
+import { RecipeContext } from "./App";
 export default function RecipeEdit({ recipe }) {
+  const { handleRecipeChange } = useContext(RecipeContext);
+  function handleChange(changes) {
+    handleRecipeChange(recipe.id, { ...recipe, ...changes });
+  }
   return (
     <div className="recipe-edit">
       <div className="recipe-edit__remove-button-container">
@@ -15,6 +19,7 @@ export default function RecipeEdit({ recipe }) {
           type="text"
           name="name"
           value={recipe.name}
+          onChange={(e) => handleChange({ name: e.target.value })}
           id="name"
           className="recipe-edit__input"
         />
@@ -25,6 +30,7 @@ export default function RecipeEdit({ recipe }) {
           type="text"
           name="cooktime"
           value={recipe.cookTime}
+          onChange={(e) => handleChange({ cookTime: e.target.value })}
           id="cooktime"
           className="recipe-edit__input"
         />
@@ -36,6 +42,9 @@ export default function RecipeEdit({ recipe }) {
           min="1"
           name="servings"
           value={recipe.serving}
+          onChange={(e) =>
+            handleChange({ serving: parseInt(e.target.value) || "" })
+          }
           id="name"
           className="recipe-edit__input"
         />
@@ -45,7 +54,7 @@ export default function RecipeEdit({ recipe }) {
         <textarea
           name="step"
           id="step"
-          value={recipe.steps.map(step => step)}
+          value={recipe.steps.map((step) => step)}
           className="recipe-edit__input"
         ></textarea>
       </div>
