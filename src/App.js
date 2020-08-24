@@ -12,7 +12,7 @@ export default function App() {
   const selectedRecipe = recipes.find(
     (recipe) => recipe.id === selectedRecipeId
   );
-  console.log(selectedRecipe);
+
   useEffect(() => {
     const getRecipes = localStorage.getItem(LOCAl_STORAGE_KEY);
     if (getRecipes != null) {
@@ -41,21 +41,25 @@ export default function App() {
   function handleRecipeAdd() {
     const newRecipe = {
       id: uuid(),
-      cookTime: 3,
-      serving: 5,
-      name: "baked cake",
+      cookTime: "",
+      serving: 1,
+      name: "",
       ingredients: [
-        { id: uuid(), name: "Bread", amount: 1, measurement: "l lb" },
-        { id: uuid(), name: "Coca cola", amount: 1, measurement: "cup" },
+        { id: uuid(), name: "", amount: 1, measurement: "" },
+        { id: uuid(), name: "", amount: "", measurement: "" },
       ],
       steps: [
         "eat every single morning before going at work",
         "be able to wake up at 5:30 in the morning",
       ],
     };
+    setSelectedRecipeId(newRecipe.Id);
     setRecipes([...recipes, newRecipe]);
   }
   function handleRecipeDelete(id) {
+    if (selectedRecipeId !== null && selectedRecipeId === id) {
+      setSelectedRecipeId(undefined);
+    }
     setRecipes(recipes.filter((recipe) => recipe.id !== id));
   }
   return (

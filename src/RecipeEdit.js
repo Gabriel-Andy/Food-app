@@ -1,15 +1,45 @@
 import React, { useContext } from "react";
 import RecipeIngredientEdit from "./RecipeIngredientEdit";
 import { RecipeContext } from "./App";
+import uuid from "react-uuid";
 export default function RecipeEdit({ recipe }) {
-  const { handleRecipeChange } = useContext(RecipeContext);
+  const { handleRecipeChange, handleRecipeSelect } = useContext(RecipeContext);
   function handleChange(changes) {
     handleRecipeChange(recipe.id, { ...recipe, ...changes });
   }
+  function handleRecipeIngredient(id, ingredient) {
+    const newIngredients = [...recipe.ingredients];
+    const index = newIngredients.findIndex((i) => i.id === id);
+    newIngredients[index] = ingredient;
+    handleChange({ ingredients: newIngredients });
+  }
+
+  function handleIngredientAdd() {
+    const newIngredient = {
+      id: uuid(),
+      name: "",
+      amount: 1,
+      measurement: "",
+    };
+    handleChange({
+      ingredients: [...recipe.ingredients, newIngredient],
+    });
+  }
+  function handleIngredientDelete(id) {
+    handleChange({
+      ingredients: recipe.ingredients.filter((i) => i.id !== id),
+    });
+  }
+
   return (
     <div className="recipe-edit">
       <div className="recipe-edit__remove-button-container">
-        <button className="recipe-edit__remove-button">&times;</button>
+        <button
+          className="recipe-edit__remove-button"
+          onClick={() => handleRecipeSelect(undefined)}
+        >
+          &times;
+        </button>
       </div>
       <div className="recipe-edit__details-grid">
         <label htmlFor="name" className="recipe-edit__label">
@@ -54,7 +84,7 @@ export default function RecipeEdit({ recipe }) {
         <textarea
           name="step"
           id="step"
-          value={recipe.steps.map((step) => step)}
+        //   value={recipe.steps.map((step) => step)}
           className="recipe-edit__input"
         ></textarea>
       </div>
@@ -67,12 +97,19 @@ export default function RecipeEdit({ recipe }) {
         <div></div>
         {recipe.ingredients.map((ingredient) => {
           return (
-            <RecipeIngredientEdit key={ingredient.id} ingredient={ingredient} />
+            <RecipeIngredientEdit
+              key={ingredient.id}
+              ingredient={ingredient}
+              handleRecipeIngredient={handleRecipeIngredient}
+              handleIngredientDelete={handleIngredientDelete}
+            />
           );
         })}
       </div>
       <div className="recipe-edit__add-ingredient-btn-container">
-        <button className="btn btn--primary">Add ingredient</button>
+        <button className="btn btn--primary" onClick={handleIngredientAdd}>
+          Add ingredient
+        </button>
       </div>
     </div>
   );
